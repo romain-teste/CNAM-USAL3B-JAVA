@@ -1,0 +1,41 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Test Post</title>
+
+<style>
+th, td {
+    padding: 5px;
+}
+</style>
+
+</head>
+
+<body>
+	<!-- Include _menu.html -->
+    <th:block th:include="/_menu"></th:block>
+        <h2>ajout d'une nouvel étap</h2>
+		<table border="1">
+	        <tr>
+	            <th>ID</th>
+	            <th>scenario</th>
+	            <th>numero</th>
+	            <th>title</th>
+	            <th>description</th>
+	            <th>reponce</th>
+	            <th>type</th>
+	        </tr>
+	      	<tr>
+	            <td th:text="${step.s_id}">..</td>
+	            <td th:text="${step.s_scenario}">..</td>
+	            <td th:text="${step.s_number}">..</td>
+	            <td th:text="${step.s_title}">..</td>
+	            <td th:text="${step.s_description}">..</td>
+	            <td th:text="${step.s_response}">..</td>
+	            <td th:text="${step.s_type}">..</td>
+	        </tr> 
+    	</table>
+
+
+    </table>
+</body>
+</html>

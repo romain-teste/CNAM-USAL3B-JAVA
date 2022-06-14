@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Ajouter une chasse au tresor</title>
+
+<style>
+th, td {
+    padding: 5px;
+}
+</style>
+
+</head>
+
+<body>
+	<!-- Include _menu.html -->
+    <th:block th:include="/_menu"></th:block>
+	
+	<form class="form" th:action="@{/testPost}" th:object="${senario}" method="post" >
+        <h2>Ajouter un Sénario:</h2>
+        
+        <input class="name" type="text" th:field="${senario.title}" name="title" placeholder="Titre du sénario:">
+
+        <input class="name" type="text" th:field="${senario.description}" name="description" placeholder="Description:">
+        
+        <input id="button" type="submit" value="Ajouter">
+    </form>
+</body>
+</html>

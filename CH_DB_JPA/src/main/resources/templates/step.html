@@ -1,0 +1,44 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Suppretion</title>
+
+<style>
+th, td {
+    padding: 5px;
+}
+</style>
+
+</head>
+
+<body>
+	<!-- Include _menu.html -->
+    <th:block th:include="/_menu"></th:block>
+    <a th:href="@{/ajout-step}">ajout step</a>
+    
+        <h2>les etape du sénario </h2>
+            <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>scenario</th>
+            <th>number</th>
+            <th>title</th>
+            <th>description</th>
+            <th>response</th>
+            <th>type</th>
+        </tr>
+      	<tr th:each="stepInfo : ${stepInfo}">
+            <td th:text="${stepInfo.id}">..</td>
+           	<td th:utext="${stepInfo.scenario}">..</td>
+            <td th:utext="${stepInfo.number}">..</td>
+            <td th:utext="${stepInfo.title}">..</td>
+            <td th:utext="${stepInfo.description}">..</td>
+            <td th:utext="${stepInfo.response}">..</td>
+            <td th:utext="${stepInfo.type}">..</td>
+            <td><a th:href="@{/suppr-step/}+${stepInfo.id}">supprimer</a></td>
+
+        </tr> 
+
+    </table>
+
+</body>
+</html>

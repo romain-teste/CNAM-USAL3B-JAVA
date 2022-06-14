@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Chasse au Tresor</title>
+
+<style>
+th, td {
+    padding: 5px;
+}
+</style>
+
+</head>
+
+<body>
+    <!-- Include _menu.html -->
+    <th:block th:include="/_menu"></th:block>
+
+    <h2>Chasse</h2>
+
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>title</th>
+            <th>description</th>
+            <th>step</th>
+        </tr>
+      	<tr th:each="chasseInfo : ${chasseInfo}">
+            <td th:utext="${chasseInfo.id}">..</td>
+            <td th:utext="${chasseInfo.title}">..</td>
+            <td th:utext="${chasseInfo.description}">..</td>
+            <td th:utext="${chasseInfo.step}">..</td>
+            <td><a th:href="@{/suppr/}+${chasseInfo.id}">supprimer</a></td>
+            <td><a th:href="@{/step/} + ${chasseInfo.id} + @{/} + ${chasseInfo.step}">Les étapes</a></td>
+        </tr> 
+
+    </table>
+</body>
+</html>
