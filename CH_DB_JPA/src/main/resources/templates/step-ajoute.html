@@ -13,16 +13,16 @@ th, td {
 <body>
 	<!-- Include _menu.html -->
     <th:block th:include="/_menu"></th:block>
-        <h2>ajout d'une nouvel étap</h2>
+        <h2>Ajout d'une nouvel étape au scénario: <span th:text="${scenariotitle}"></span></h2>
 		<table border="1">
 	        <tr>
 	            <th>ID</th>
-	            <th>scenario</th>
-	            <th>numero</th>
-	            <th>title</th>
+	            <th>scénario</th>
+	            <th>numéro</th>
+	            <th>titre</th>
 	            <th>description</th>
-	            <th>reponce</th>
-	            <th>type</th>
+	            <th>réponse</th>
+	            <th>type de réponse</th>
 	        </tr>
 	      	<tr>
 	            <td th:text="${step.s_id}">..</td>

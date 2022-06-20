@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Ajouter une chasse au tresor</title>
+<title>Ajouter une chasse au trésor</title>
 
 <style>
 th, td {
@@ -16,9 +16,9 @@ th, td {
     <th:block th:include="/_menu"></th:block>
 	
 	<form class="form" th:action="@{/testPost}" th:object="${senario}" method="post" >
-        <h2>Ajouter un Sénario:</h2>
+        <h2>Ajouter un Scénario:</h2>
         
-        <input class="name" type="text" th:field="${senario.title}" name="title" placeholder="Titre du sénario:">
+        <input class="name" type="text" th:field="${senario.title}" name="title" placeholder="Titre du scénario:">
 
         <input class="name" type="text" th:field="${senario.description}" name="description" placeholder="Description:">
         

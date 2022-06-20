@@ -13,18 +13,18 @@ th, td {
 <body>
 	<!-- Include _menu.html -->
     <th:block th:include="/_menu"></th:block>
-    <a th:href="@{/ajout-step}">ajout step</a>
+    <a th:href="@{/ajout-step/}+${scenariotitle}">Ajouter une étape</a>
     
-        <h2>les etape du sénario </h2>
+        <h2>les étape du scenario: </span><span th:text="${scenariotitle}"></span> </h2>
             <table border="1">
         <tr>
             <th>ID</th>
-            <th>scenario</th>
-            <th>number</th>
-            <th>title</th>
+            <th>scénario</th>
+            <th>étape</th>
+            <th>titre</th>
             <th>description</th>
-            <th>response</th>
-            <th>type</th>
+            <th>réponse</th>
+            <th>type de réponse</th>
         </tr>
       	<tr th:each="stepInfo : ${stepInfo}">
             <td th:text="${stepInfo.id}">..</td>

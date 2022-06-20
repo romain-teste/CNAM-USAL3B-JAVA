@@ -20,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,9 +47,11 @@ public class MainController {
 		return "chassePage";
 	}
 
-	@RequestMapping(value="/step/{itemid}/{itemStep}", method=RequestMethod.GET)
-	public String showStep(@PathVariable("itemid") int itemid, @PathVariable("itemStep") int itemStep, Model model) {
+	@RequestMapping(value="/step/{itemid}/{itemtitle}/{itemStep}", method=RequestMethod.GET)
+	public String showStep(@PathVariable("itemid") int itemid,@PathVariable("itemtitle") String itemtitle, @PathVariable("itemStep") int itemStep, Model model) {
 		List <TableStep> list=stepDAO.getChasseTresoreStep(itemid); 
+		model.addAttribute("scenario", itemid);
+		model.addAttribute("scenariotitle", itemtitle);
 		model.addAttribute("stepInfo", list);
 		idScenario = itemid;
 		nbrStep = itemStep;
@@ -79,46 +82,61 @@ public class MainController {
 	
 	// STEP ----
 	
-	@GetMapping("/ajout-step")
-	public String ajoutStep (Model model) {
+	@GetMapping("/ajout-step/{itemtitle}")
+	public String ajoutStep (@PathVariable("itemtitle") String itemtitle,Model model) {
 		model.addAttribute("step",new TableStep());
+		model.addAttribute("scenariotitle", itemtitle);
 		return "ajout-step";
 	}
 	
-	@PostMapping("/step-ajoute")
-	public String postStep(@ModelAttribute TableStep step, Model model) {
+	@PostMapping("/step-ajoute/{itemtitle}")
+	public String postStep(@ModelAttribute TableStep step,@PathVariable("itemtitle") String itemtitle, Model model) {
 		TableStep newStep = new TableStep(step.s_id, idScenario, nbrStep++, step.s_title, step.s_description, step.s_response, step.s_type);
         os.save(newStep);
         model.addAttribute("step", step);
+        model.addAttribute("scenariotitle", itemtitle);
         chasseTresoreDAO.setStepAjout(idScenario);
 		return "step-ajoute";
 	}
 		
 	@RequestMapping(value="/suppr-step/{itemid}", method=RequestMethod.GET)
-	public String suppretionStep(@PathVariable("itemid") int itemid) {
+	public String suppretionStep(@PathVariable("itemid") int itemid, Model model) {
 		os.deleteById(itemid);
 		chasseTresoreDAO.setStepSuppr(idScenario);
+		model.addAttribute("idStep", itemid);
 		return "suppr-step";
 	}
 	
 	// API ------
-	
+	@CrossOrigin
 	@RequestMapping(value="/api/v1/scenarios", method=RequestMethod.GET)
-	//@RequestMapping(value = { "/scenarioListJson" }, method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity<List<ScenarioJson>> scenarioListJson() {
 	List<ScenarioJson> listeScenarios = new ArrayList<ScenarioJson>();
 	for (TableSenario scenario : ob.findAll()) {
-	listeScenarios.add(new ScenarioJson(scenario));
+		listeScenarios.add(new ScenarioJson(scenario));
 	}
 	return ResponseEntity.ok(listeScenarios);
 	}
 	
+	@CrossOrigin
 	@RequestMapping(value="/api/v1/scenarios/{itemid}", method=RequestMethod.GET)
-	//@RequestMapping(value = { "/scenarioListJson" }, method = RequestMethod.GET)
-	public @ResponseBody ResponseEntity<List<StepJson>> stepListJson(@PathVariable("itemid") int itemid) {
+	public @ResponseBody ResponseEntity<List<ScenarioJson>> scenarioByIdJson(@PathVariable("itemid") int itemid) {
+	List<ScenarioJson> listeScenarios = new ArrayList<ScenarioJson>();
+	for (TableSenario scenario : ob.findAll()) {
+		 if(scenario.se_id == itemid) {
+			 listeScenarios.add(new ScenarioJson(scenario));
+		 }
+	}
+
+	return ResponseEntity.ok(listeScenarios);
+	}
+	
+	@CrossOrigin
+	@RequestMapping(value="/api/v1/scenarios/{itemid}/step/{itemnum}", method=RequestMethod.GET)
+	public @ResponseBody ResponseEntity<List<StepJson>> stepNumJson(@PathVariable("itemid") int itemid, @PathVariable("itemnum") int itemnum) {
 	List<StepJson> listeStep = new ArrayList<StepJson>();
 	for (TableStep step : os.findAll()) {
-		if(step.s_scenario == itemid) {
+		if(step.s_scenario == itemid && step.s_number == itemnum) {
 			listeStep.add(new StepJson(step));
 		}
 	}

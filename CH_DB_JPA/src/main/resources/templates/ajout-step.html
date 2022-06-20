@@ -15,21 +15,21 @@ th, td {
 	<!-- Include _menu.html -->
     <th:block th:include="/_menu"></th:block>
 	
-	<form class="form" th:action="@{/step-ajoute}" th:object="${step}" method="post" >
-        <h2>Ajouter une étap:</h2>
+	<form class="form" th:action="@{/step-ajoute/} + ${scenariotitle}" th:object="${step}" method="post" >
+        <h2>Ajouter une étape dans le sénario: <span th:text="${scenariotitle}"></span></h2>
 
         
         <!-- <input class="name" type="number" th:field="${step.scenario}" name="scenario" placeholder="Scenario:"> -->
         
-        <input class="name" type="number" th:field="${step.number}" name="number" placeholder="numéro de l'étap':">
+        <input class="name" type="number" th:field="${step.number}" name="number" placeholder="Numéro de l'étape:">
         
-        <input class="name" type="text" th:field="${step.title}" name="title" placeholder="Titre de l'étap':">
+        <input class="name" type="text" th:field="${step.title}" name="title" placeholder="Titre de l'étape:">
 
         <input class="name" type="text" th:field="${step.description}" name="description" placeholder="Description:">
         
-        <input class="name" type="text" th:field="${step.response}" name="response" placeholder="reponse :">
+        <input class="name" type="text" th:field="${step.response}" name="response" placeholder="Réponse:">
         
-        <input class="name" type="text" th:field="${step.type}" name="type" placeholder="type de reponse :">
+        <input class="name" type="text" th:field="${step.type}" name="type" placeholder="Type de réponse:">
 
         <input id="button" type="submit" value="Ajouter">
     </form>

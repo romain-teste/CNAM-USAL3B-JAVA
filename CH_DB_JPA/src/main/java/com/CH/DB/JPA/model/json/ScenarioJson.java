@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.CH.DB.JPA.table.TableSenario;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "titre", "description", "step" })
+@JsonPropertyOrder({ "id", "titre", "description", "step" })
 public class ScenarioJson {
 	@JsonIgnore
 	private TableSenario scenario;
@@ -26,6 +26,16 @@ public class ScenarioJson {
 
 	public ScenarioJson(TableSenario scenario) {
 		this.scenario = scenario;
+	}
+	
+	@JsonProperty("id")
+	public int getId() {
+		return scenario.getId();
+	}
+
+	@JsonProperty("id")
+	public void setId(int id) {
+		scenario.setId(id);
 	}
 
 	@JsonProperty("titre")
